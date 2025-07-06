@@ -1,7 +1,7 @@
 chcp 65001
 echo off
 color 000A
-title Install plugin realpack 3.2
+title Install plugin realpack 3.3
 mode con:cols=100 lines=11
 rmdir /S /q realpack
 md realpack
