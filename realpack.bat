@@ -1,6 +1,6 @@
 chcp 65001
 echo off
-mode con:cols=20 lines=2
+mode con:cols=100 lines=20
 title Install plugin realpack 3.4
 rmdir /S /q realpack
 md realpack
