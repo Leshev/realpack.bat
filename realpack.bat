@@ -33,11 +33,6 @@ if exist "%TARGET_FOLDER%" (
 
 move "%SOURCE_DIR%" "%TARGET_DIR%"
 
-if exist "%TARGET_FOLDER%" (
- echo Папка realpack успешно перемещена в %TARGET_DIR%
-) else (
- echo Ошибка при перемещении папки
-)
 cls
 echo Успех!!! 
 echo Complited!!!
