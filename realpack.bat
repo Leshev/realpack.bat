@@ -17,8 +17,22 @@ if %result% EQU 2 (goto :update) else if %result% EQU 1 (goto install)
 
 
 
+
+
 :install
 cls
+where powershell >nul 2>&1
+if %errorlevel% neq 0 (
+		echo Установка пакетов PowerShell и Winget...
+		winget install --id Microsoft.Powershell --source winget >nul
+		echo Успешно!
+		)
+where curl >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Ошибка: curl не установлен или не добавлен в PATH
+    echo Устанавливаю...
+	winget install --id=cURL.cURL -e >nul
+)
 setlocal enabledelayedexpansion
 
 set "SOURCE_DIR=realpack"
@@ -101,14 +115,18 @@ echo Установка завершена.
 
 :update
 cls
-
 where powershell >nul 2>&1
 if %errorlevel% neq 0 (
 		echo Установка пакетов PowerShell и Winget...
 		winget install --id Microsoft.Powershell --source winget >nul
 		echo Успешно!
 		)
-
+where curl >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Ошибка: curl не установлен или не добавлен в PATH
+    echo Устанавливаю...
+	winget install --id=cURL.cURL -e >nul
+)
 echo Проверяю обновления...
 setlocal enabledelayedexpansion
 
@@ -126,14 +144,6 @@ set "TEMP_VERSION_FILE=%TEMP%\github_version.txt"
 if not exist "%LOCAL_VERSION_FILE%" (
     echo Локальный файл версии не найден: %LOCAL_VERSION_FILE%
     goto :end
-)
-
-:: Проверяем наличие curl
-where curl >nul 2>&1
-if %errorlevel% neq 0 (
-    echo Ошибка: curl не установлен или не добавлен в PATH
-    echo Устанавливаю...
-	winget install --id=cURL.cURL -e >nul
 )
 :: Скачиваем версию с GitHub с помощью curl
 echo Проверяем актуальную версию на GitHub...
